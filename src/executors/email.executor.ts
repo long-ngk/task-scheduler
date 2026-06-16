@@ -65,10 +65,9 @@ export class EmailExecutor {
       host: smtpConfig.host,
       port: smtpConfig.port,
       secure: smtpConfig.secure,
-      auth: {
-        user: smtpConfig.auth.user,
-        pass: smtpConfig.auth.pass,
-      },
+      ...(smtpConfig.auth.user && smtpConfig.auth.pass
+        ? { auth: { user: smtpConfig.auth.user, pass: smtpConfig.auth.pass } }
+        : {}),
     });
 
     const recipientResults: RecipientResult[] = [];
@@ -76,7 +75,7 @@ export class EmailExecutor {
     for (const recipient of recipients) {
       try {
         const info = await transporter.sendMail({
-          from: smtpConfig.auth.user,
+          from: smtpConfig.auth.user || 'noreply@task-scheduler.local',
           to: recipient,
           subject,
           text: body,
