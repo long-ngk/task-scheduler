@@ -1,0 +1,17 @@
+meta {
+  name: List Tasks - Filter by Status
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/api/schedules?status=pending&page=1&pageSize=20
+  body: none
+  auth: none
+}
+
+params:query {
+  status: pending
+  page: 1
+  pageSize: 20
+}

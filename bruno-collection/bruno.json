@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "Task Scheduler API",
+  "type": "collection",
+  "ignore": ["node_modules"]
+}

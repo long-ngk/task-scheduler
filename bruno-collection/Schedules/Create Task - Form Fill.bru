@@ -1,0 +1,33 @@
+meta {
+  name: Create Task - Form Fill
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/schedules
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "type": "form_fill",
+    "payload": {
+      "template": {
+        "name": { "type": "string", "required": true },
+        "email": { "type": "string", "required": true },
+        "age": { "type": "number", "required": false }
+      },
+      "data": {
+        "name": "John Doe",
+        "email": "john@example.com"
+      }
+    },
+    "scheduleAt": "2026-06-16T10:00:00.000Z"
+  }
+}

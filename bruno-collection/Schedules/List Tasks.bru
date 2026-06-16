@@ -1,0 +1,16 @@
+meta {
+  name: List Tasks
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/schedules?page=1&pageSize=20
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  pageSize: 20
+}

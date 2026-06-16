@@ -1,0 +1,19 @@
+meta {
+  name: Cancel Task
+  type: http
+  seq: 11
+}
+
+patch {
+  url: {{baseUrl}}/api/schedules/:id/cancel
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+params:path {
+  id: REPLACE_WITH_TASK_ID
+}

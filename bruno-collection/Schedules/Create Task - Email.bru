@@ -1,0 +1,27 @@
+meta {
+  name: Create Task - Email
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/schedules
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "type": "email",
+    "payload": {
+      "subject": "Weekly Report",
+      "body": "Here is your weekly report summary.",
+      "recipients": ["user@example.com", "admin@example.com"]
+    },
+    "scheduleAt": "2026-06-16T10:00:00.000Z"
+  }
+}

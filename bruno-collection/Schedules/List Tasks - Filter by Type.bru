@@ -1,0 +1,17 @@
+meta {
+  name: List Tasks - Filter by Type
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/schedules?type=email&page=1&pageSize=20
+  body: none
+  auth: none
+}
+
+params:query {
+  type: email
+  page: 1
+  pageSize: 20
+}

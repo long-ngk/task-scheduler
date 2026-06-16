@@ -1,0 +1,19 @@
+meta {
+  name: Resume Task
+  type: http
+  seq: 13
+}
+
+patch {
+  url: {{baseUrl}}/api/schedules/:id/resume
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+params:path {
+  id: REPLACE_WITH_TASK_ID
+}

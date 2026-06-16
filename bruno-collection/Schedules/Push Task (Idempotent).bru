@@ -1,0 +1,27 @@
+meta {
+  name: Push Task (Idempotent)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/schedules/push
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "type": "email",
+    "payload": {
+      "subject": "Notification",
+      "body": "This is an automated notification.",
+      "recipients": ["user@example.com"]
+    },
+    "idempotencyKey": "unique-key-abc-123"
+  }
+}

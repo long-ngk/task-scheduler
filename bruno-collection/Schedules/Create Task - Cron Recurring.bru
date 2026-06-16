@@ -1,0 +1,25 @@
+meta {
+  name: Create Task - Cron Recurring
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/schedules
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "type": "file_read",
+    "payload": {
+      "filePath": "/data/daily-report.txt"
+    },
+    "cronExpr": "0 9 * * *"
+  }
+}

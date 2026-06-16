@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-scheduler-app
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_DB_NAME=task_scheduler
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SMTP_HOST=mailhog
+      - SMTP_PORT=1025
+      - SMTP_SECURE=false
+      - SMTP_USER=
+      - SMTP_PASS=
+      - FILESYSTEM_ALLOWED_BASE_PATHS=/data
+      - TASK_DEFAULT_TIMEOUT_SECONDS=30
+      - TASK_DEFAULT_MAX_RETRIES=3
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - task-data:/data
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:7
+    container_name: task-scheduler-mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: task-scheduler-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: task-scheduler-mailhog
+    ports:
+      - '1025:1025'   # SMTP
+      - '8025:8025'   # Web UI
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+  redis-data:
+  task-data:

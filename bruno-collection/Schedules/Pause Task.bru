@@ -1,0 +1,19 @@
+meta {
+  name: Pause Task
+  type: http
+  seq: 12
+}
+
+patch {
+  url: {{baseUrl}}/api/schedules/:id/pause
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+params:path {
+  id: REPLACE_WITH_TASK_ID
+}

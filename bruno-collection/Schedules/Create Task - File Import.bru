@@ -1,0 +1,25 @@
+meta {
+  name: Create Task - File Import
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/schedules
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "type": "file_import",
+    "payload": {
+      "filePaths": ["/data/users.csv", "/data/products.json"]
+    },
+    "scheduleAt": "2026-06-16T10:00:00.000Z"
+  }
+}
