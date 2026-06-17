@@ -235,6 +235,22 @@ See `.env.example` for all supported environment variables. Key variables:
 | `TASK_DEFAULT_TIMEOUT_SECONDS` | 30 | Default timeout per task (1-3600s) |
 | `TASK_DEFAULT_MAX_RETRIES` | 3 | Default retry count (0-10) |
 
+> **⚠️ Important: Variables that need to be updated before running**
+>
+> The following variables have **no usable defaults** and must be configured based on your environment:
+>
+> | Variable | Why | Example |
+> |----------|-----|---------|
+> | `MONGODB_URI` | Must point to your actual MongoDB instance | `mongodb://mongodb:27017` (Docker) or `mongodb://localhost:27017` (local) |
+> | `REDIS_HOST` | Must point to your actual Redis instance | `redis` (Docker) or `localhost` (local) |
+> | `SMTP_HOST` | Required for email tasks to work | `localhost` (Mailhog), `smtp.gmail.com` (Gmail) |
+> | `SMTP_PORT` | Must match your SMTP server | `1025` (Mailhog), `587` (Gmail/TLS) |
+> | `SMTP_USER` | Required if SMTP server needs authentication | Your email address or SMTP username |
+> | `SMTP_PASS` | Required if SMTP server needs authentication | App password or SMTP password |
+> | `FILESYSTEM_ALLOWED_BASE_PATHS` | Directories where file tasks can read from | `/data,/uploads` |
+>
+> If using **Docker Compose**, these are pre-configured in `docker-compose.yml`. For **local development**, copy `.env.example` to `.env` and update the values above.
+
 ## Directory Structure
 
 ```
